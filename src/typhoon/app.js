@@ -1,6 +1,7 @@
 var express = require('express');
 var Article = require('./models/article').Article;
 var helpers = require('./helpers');
+var jadevu = require('jadevu');
 
 module.exports.app = function(root, configs, listen) {
   var app = express.createServer();
@@ -26,6 +27,7 @@ module.exports.app = function(root, configs, listen) {
 
     app.set('views', app.set('typhoon viewsDir'));
     app.set('view engine', app.set('typhoon viewsEngine'));
+    app.set('view options', { layout: false });
     app.use(express.bodyParser());
     app.use(express.methodOverride());
 

@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var utils = require('../utils');
+var helpers = require('../helpers');
 var jade = require('jade');
 
 var Article;
@@ -59,6 +60,20 @@ module.exports.Article = (function() {
     ].join('/');
 
     return url;
+  };
+
+  Article.prototype.toJSON = function(summary) {
+    var json = {
+      title: this.title,
+      slug: this.slug,
+      date: this.date,
+      meta: this.meta,
+      data: this.data,
+      body: summary ? helpers.summary(this.body) : this.body,
+      rellink: this.permalink(),
+      permalink: this.permalink(true)
+    };
+    return json;
   };
 
   Article.includePath = null;

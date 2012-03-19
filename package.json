@@ -12,7 +12,8 @@
   "dependencies": {
     "express": ">= 2.3.9",
     "node-markdown": ">= 0.1.0",
-    "jade": ">= 0.10.4"
+    "jade": ">= 0.10.4",
+    "jadevu": ">= 0.0.8"
   },
   "devDependencies": {
     "coffee-script": ">= 1.0.1",

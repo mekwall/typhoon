@@ -133,7 +133,17 @@ var list = function(req, res, next) {
     locals.paging.next = pageLink(locals.page + 1);
   }
 
-  res.render('list', locals);
+  locals.xhr = req.xhr;
+
+  if (req.xhr) {
+    var jsonArticles = [];
+    locals.articles.forEach(function(article){
+      jsonArticles.push({article:article.toJSON(true)});
+    });
+    res.send({title:locals.title,articles:jsonArticles,paging:locals.paging}, {"Content-Type": "application/json"});
+  } else {
+    res.render('list', locals);
+  }
 };
 
 var show = function(req, res, next) {
@@ -142,7 +152,11 @@ var show = function(req, res, next) {
   locals.article = req.article;
   locals.title = req.article.title;
 
-  res.render('article', locals);
+  if (req.xhr) {
+    res.send({article:locals.article.toJSON()}, {"Content-Type": "application/json"});
+  } else {
+    res.render('article', locals);
+  }
 };
 
 var feed = function(req, res, next) {
